@@ -14,7 +14,6 @@ export default props => {
   };
 
   const classe = toCssClass(props.cols); 
-  console.log(classe)
   return (
       <div className={classe}>
           {props.children}
