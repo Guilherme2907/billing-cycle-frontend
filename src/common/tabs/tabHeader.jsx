@@ -1,15 +1,42 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-// import { Container } from './styles';
+import * as TabsActions from "./tabsAction";
+import If from "./operator/if";
 
-export default class TabHeader extends Component {
+class TabHeader extends Component {
   render() {
+    const { target, icon, label, selected, selectTab,visible } = this.props;
+    const selectedItem = selected === target ? "active" : "";
+    const visibleItem = visible[target];
+
     return (
-      <li>
-        <a href="javascript:;" data-toggle="tab" data-target={this.props.targer}>
-          <i className={`fa fa-${this.props.icon}`}></i> {this.props.label}
-        </a>
-      </li>
+      <If test={visibleItem}>
+        <li className={selectedItem}>
+          <a
+            href="javascript:;"
+            data-toggle="tab"
+            onClick={() => selectTab(target)}
+            data-target={target}
+          >
+            <i className={`fa fa-${icon}`}></i> {label}
+          </a>
+        </li>
+      </If>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  selected: state.tab.selected,
+  visible: state.tab.visible
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(TabsActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TabHeader);
