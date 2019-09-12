@@ -12,12 +12,13 @@ class BillingCycleList extends Component {
     const { list } = this.props;
 
     let renderRows = () =>
-      list.map(b => {
+      list.map(bc => {
         return (
-          <tr key={b._id}>
-            <td>{b.name}</td>
-            <td>{b.month}</td>
-            <td>{b.year}</td>
+          <tr key={bc._id}>
+            <td>{bc.name}</td>
+            <td>{bc.month}</td>
+            <td>{bc.year}</td>
+            <td><button onClick={() => this.props.showUpdate(bc)} className='btn btn-warning'><i className='fa fa-pencil'></i></button></td>
           </tr>
         );
       });
