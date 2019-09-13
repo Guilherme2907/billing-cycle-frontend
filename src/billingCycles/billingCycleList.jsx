@@ -9,38 +9,34 @@ class BillingCycleList extends Component {
     this.props.getList();
   }
 
+  renderRows() {
+    const list = this.props.list;
+    return list.map(bc => {
+      return (
+        <tr key={bc._id}>
+          <td>{bc.name}</td>
+          <td>{bc.month}</td>
+          <td>{bc.year}</td>
+          <td className="buttonsActions">
+            <Button
+              type="button"
+              classe="warning"
+              icon="pencil"
+              onClick={() => this.props.showTabAction(bc, "tabUpdate")}
+            />
+            <Button
+              type="button"
+              classe="danger"
+              icon="trash-o"
+              onClick={() => this.props.showTabAction(bc, "tabDelete")}
+            />
+          </td>
+        </tr>
+      );
+    });
+  }
+
   render() {
-    const { list } = this.props;
-
-    let renderRows = () =>
-      list.map(bc => {
-        return (
-          <tr key={bc._id}>
-            <td>{bc.name}</td>
-            <td>{bc.month}</td>
-            <td>{bc.year}</td>
-            <td className='buttonsActions'>
-              <Button
-                type="button"
-                classe="warning"
-                icon="pencil"
-                onClick={() =>
-                  this.props.showTabAction(bc, "tabUpdate")
-                }
-              />
-              <Button
-                type="button"
-                classe="danger"
-                icon="trash-o"
-                onClick={() =>
-                  this.props.showTabAction(bc, "tabDelete")
-                }
-              />
-            </td>
-          </tr>
-        );
-      });
-
     return (
       <div>
         <table className="table">
@@ -52,7 +48,7 @@ class BillingCycleList extends Component {
               <th className="tableActions">Ações</th>
             </tr>
           </thead>
-          <tbody>{renderRows()}</tbody>
+          <tbody>{this.renderRows()}</tbody>
         </table>
       </div>
     );

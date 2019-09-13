@@ -16,8 +16,7 @@ import * as BillingCyclesActions from "./billingCycleActions";
 
 class BillingCycles extends Component {
   componentWillMount() {
-    this.props.selectTab("tabList");
-    this.props.showTabs("tabList", "tabCreate");
+    this.props.init()
   }
 
   render() {

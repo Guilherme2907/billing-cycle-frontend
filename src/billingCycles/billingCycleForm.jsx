@@ -1,20 +1,30 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as BillingCyclesActions from "./billingCycleActions";
 import Button from "../common/template/button";
+import Summary from './summary';
 
 import LabelAndInput from "../common/form/labelAndInput";
-import CreditList from './creditList';
+import ItemList from "./itemList";
 
 class BillingCyclesForm extends Component {
   componentWillUnmount() {
     this.props.init();
   }
 
+  calculateSummary() {
+    const sum = (t,v) => t+v;
+    return {
+      sumOfCredits: this.props.credits.map(c => +c.value || 0).reduce(sum),
+      sumOfDebts: this.props.debts.map(d => +d.value || 0).reduce(sum)
+    }
+  }
+
   render() {
-    const { handleSubmit, readOnly } = this.props;
+    const { handleSubmit, readOnly,credits,debts } = this.props;
+    const { sumOfCredits,sumOfDebts} = this.calculateSummary()
     return (
       <form role="form" onSubmit={handleSubmit}>
         <div className="box-body">
@@ -45,7 +55,9 @@ class BillingCyclesForm extends Component {
             placeholder="Informe o ano"
             readOnly={readOnly}
           />
-          <CreditList cols='12 6' readOnly={this.props.readOnly}/>
+          <Summary credit={sumOfCredits} debt={sumOfDebts} />
+          <ItemList cols="12 6" readOnly={this.props.readOnly} list={credits} label='Créditos' field='credits'/>
+          <ItemList cols="12 6" readOnly={this.props.readOnly} list={debts} label='Débitos' field='debts' showStatus/>
         </div>
         <div className="box-footer">
           <Button type="submit" classe={this.props.submitClass}>
@@ -65,7 +77,13 @@ const BillingCycleForm = reduxForm({
   destroyOnUnmount: false
 })(BillingCyclesForm);
 
-const mapStateToProps = state => ({});
+const selector = formValueSelector("billingCycleForm");
+
+
+const mapStateToProps = state => ({
+  credits: selector(state,'credits'),
+  debts: selector(state,'debts')
+});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(BillingCyclesActions, dispatch);

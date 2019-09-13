@@ -5,7 +5,7 @@ import { reset, initialize } from "redux-form";
 import { selectTab, showTabs } from "../common/tabs/tabsAction";
 
 const BASE_URL = "http://localhost:3003/api/billingCycles";
-const INITIAL_VALUES = {};
+const INITIAL_VALUES = { credits: [{}], debts: [{}] };
 
 export const getList = () => {
     return dispatch => {
