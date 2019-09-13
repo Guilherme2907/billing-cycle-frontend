@@ -18,23 +18,24 @@ export const getList = () => {
 };
 
 export const createBillingCycle = valuesForm => {
-    return submit(valuesForm, 'post')
+    return submit(valuesForm, "post");
 };
 
 export const updateBillingCycle = valuesForm => {
-    return submit(valuesForm, 'put')
+    return submit(valuesForm, "put");
+};
+
+export const deleteBillingCycle = valuesForm => {
+    return submit(valuesForm, "delete");
 };
 
 const submit = (valuesForm, method) => {
     const id = valuesForm._id ? valuesForm._id : "";
-    console.log(valuesForm, id, method)
+    console.log(valuesForm, id, method);
     return dispatch => {
         axios[method](`${BASE_URL}/${id}`, valuesForm)
             .then(resp => {
-                toastr.success(
-                    "Sucesso",
-                    "Operação efetuada com sucesso"
-                );
+                toastr.success("Sucesso", "Operação efetuada com sucesso");
                 dispatch(init());
             })
             .catch(e =>
@@ -43,10 +44,10 @@ const submit = (valuesForm, method) => {
     };
 };
 
-export const showUpdate = bc => {
+export const showTabAction = (bc, tab) => {
     return [
-        showTabs("tabUpdate"),
-        selectTab("tabUpdate"),
+        showTabs(tab),
+        selectTab(tab),
         initialize("billingCycleForm", bc)
     ];
 };

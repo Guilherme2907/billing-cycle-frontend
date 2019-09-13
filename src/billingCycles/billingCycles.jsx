@@ -21,7 +21,7 @@ class BillingCycles extends Component {
   }
 
   render() {
-    const { createBillingCycle, updateBillingCycle } = this.props;
+    const { createBillingCycle, updateBillingCycle,deleteBillingCycle } = this.props;
 
     return (
       <div>
@@ -39,13 +39,13 @@ class BillingCycles extends Component {
                 <BillingCyclesList />
               </TabContent>
               <TabContent id="tabCreate">
-                <BillingCyclesForm onSubmit={createBillingCycle} />
+                <BillingCyclesForm onSubmit={createBillingCycle} submitClass='success' submitLabel='Salvar'/>
               </TabContent>
               <TabContent id="tabUpdate">
-                <BillingCyclesForm onSubmit={updateBillingCycle} />
+                <BillingCyclesForm onSubmit={updateBillingCycle} submitClass='warning' submitLabel='Editar'/>
               </TabContent>
               <TabContent id="tabDelete">
-                <h1>Delete</h1>
+                <BillingCyclesForm onSubmit={deleteBillingCycle} readOnly submitClass='danger' submitLabel='Excluir'/>
               </TabContent>
             </TabsContent>
           </Tabs>

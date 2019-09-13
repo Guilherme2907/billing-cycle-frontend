@@ -3,8 +3,10 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as BillingCyclesActions from "./billingCycleActions";
+import Button from "../common/template/button";
 
 import LabelAndInput from "../common/form/labelAndInput";
+import CreditList from './creditList';
 
 class BillingCyclesForm extends Component {
   componentWillUnmount() {
@@ -12,7 +14,7 @@ class BillingCyclesForm extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, readOnly } = this.props;
     return (
       <form role="form" onSubmit={handleSubmit}>
         <div className="box-body">
@@ -23,6 +25,7 @@ class BillingCyclesForm extends Component {
             type="text"
             cols="12 4"
             placeholder="Informe o nome"
+            readOnly={readOnly}
           />
           <Field
             name="month"
@@ -31,6 +34,7 @@ class BillingCyclesForm extends Component {
             type="number"
             cols="12 4"
             placeholder="Informe o mês"
+            readOnly={readOnly}
           />
           <Field
             name="year"
@@ -39,19 +43,17 @@ class BillingCyclesForm extends Component {
             type="number"
             cols="12 4"
             placeholder="Informe o ano"
+            readOnly={readOnly}
           />
+          <CreditList cols='12 6' readOnly={this.props.readOnly}/>
         </div>
         <div className="box-footer">
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-          <button
-            onClick={this.props.init}
-            type="button"
-            className="btn btn-default"
-          >
+          <Button type="submit" classe={this.props.submitClass}>
+            {this.props.submitLabel}
+          </Button>
+          <Button type="button" classe="default" onClick={this.props.init}>
             Cancelar
-          </button>
+          </Button>
         </div>
       </form>
     );
