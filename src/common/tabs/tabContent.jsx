@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as TabsActions from "./tabsAction";
-import If from "./operator/if";
+import If from "../operator/if";
 
 class TabContent extends Component {
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from "../common/layout/grid";
 import Button from "../common/template/button";
-import If from "../common/tabs/operator/if";
+import If from "../common/operator/if";
 
 import { Field, arrayInsert, arrayRemove } from "redux-form";
 import Input from "../common/form/input";
